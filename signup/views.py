@@ -4,7 +4,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 
 def index(request):
-    title = "Why doesn't the fucking signup_form render?"
+    title = "E-editions for Sale"
     signup_form = Product.objects.order_by('product_active')
     return render_to_response('signup/index.html', {'signup_form': signup_form, 'title': title},
 context_instance=RequestContext(request))
