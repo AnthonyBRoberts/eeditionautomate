@@ -1,7 +1,7 @@
 {% block main %}
 <h1>{{ title }}</h1>
 <p>Get yo self an e-edition. Wurd</p>
-{% for object in signup_form %}
+{% for object in signup_form%}
 {{object}}
 {% endfor %}
 

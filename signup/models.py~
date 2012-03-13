@@ -10,7 +10,7 @@ class Product(models.Model):
     def __unicode__(self):
         return self.product_type
 
-class Subscriber(User):
+class Subscriber(models.Model):
     address = models.CharField(max_length=200)
     date_created = models.DateTimeField('created date')
     sub_type = models.ForeignKey(Product)
@@ -30,3 +30,5 @@ class Communication(models.Model):
     comm_message = models.CharField(max_length=255)
     comm_active = models.BooleanField()
     comm_schedule = models.DateTimeField('communication schedule')
+    def __unicode__(self):
+        return self.comm_name
