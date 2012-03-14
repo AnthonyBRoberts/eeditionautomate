@@ -1,8 +1,11 @@
 {% block main %}
 <h1>{{ title }}</h1>
 <p>Get yo self an e-edition. Wurd</p>
+<form action="/signup/{{ product.id }}/select_product/" method="post">
 {% for object in signup_form %}
-{{object}}
+<input type="radio" name="select a product" id="product{{ forloop.counter }}" value="{{ product.id }}" />
+    <label for="product{{ forloop.counter }}">{{ object }}</label><br /></li>
 {% endfor %}
+<input type="submit" value="select_product" />
 
 {% endblock %}

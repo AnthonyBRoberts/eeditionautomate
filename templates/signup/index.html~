@@ -1,8 +1,25 @@
 {% block main %}
 <h1>{{ title }}</h1>
 <p>Get yo self an e-edition. Wurd</p>
-{% for object in signup_form%}
-{{object}}
+<form action="/signup/select_product/" method="post">
+{% for object in signup_form %}
+<input type="radio" name="select a product" id="product{{ forloop.counter }}" value="{{ product.id }}" />
+    <label for="product{{ forloop.counter }}">{{ object }}</label><br /></li>
+{% endfor %}
+<input type="submit" value="select_product" />
+
+
+
+    
+<!--
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+
+{% csrf_token %}
+{% for object in signup_form %}
+    
 {% endfor %}
 
+</form>
+-->
 {% endblock %}
