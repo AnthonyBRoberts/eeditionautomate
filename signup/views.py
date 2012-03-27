@@ -12,8 +12,8 @@ context_instance=RequestContext(request))
 
 def subscriber_signup(request, product_id):
     signup = Product.objects.get(id=product_id)
-    return render_to_response('thankyou.html', {
-        'product': product,
+    return render_to_response('signup/thankyou.html', {
+        'product': signup,
     })
     #title = "this is a title"
     #subscriber_signup_form = Subscriber.sub_type

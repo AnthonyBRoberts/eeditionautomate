@@ -1,6 +1,13 @@
 from django.contrib.auth.models import User, UserManager
 from django.db import models
 import datetime
+from django import forms
+
+#class SignupForm(forms.Form):
+#    subject = forms.CharField(max_length=100)
+#    message = forms.CharField()
+#    sender = forms.EmailField()
+#    cc_myself = forms.BooleanField(required=False)
 
 class Product(models.Model):
     product_type = models.CharField(max_length=100)

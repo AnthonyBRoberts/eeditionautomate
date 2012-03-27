@@ -1,6 +1,13 @@
 from django.contrib.auth.models import User, UserManager
 from django.db import models
 import datetime
+from django import forms
+
+class SignupForm(forms.Form):
+    subject = forms.CharField(max_length=100)
+    message = forms.CharField()
+    sender = forms.EmailField()
+    cc_myself = forms.BooleanField(required=False)
 
 class Product(models.Model):
     product_type = models.CharField(max_length=100)
@@ -17,8 +24,8 @@ class Subscriber(User):
     date_created = models.DateTimeField('created date')
     sub_type = models.ForeignKey(Product)
     #def __unicode__(self):
-    def get_absolute_url(self):
-        return "/signup/%s/%s/" % (self.date_created, 
+    #def get_absolute_url(self):
+      #  return "/signup/%s/%s/" % (self.date_created, 
     #    return self.user_ptr_id    
     def was_published_today(self):
         return self.date_created.date() == datetime.date.today()
