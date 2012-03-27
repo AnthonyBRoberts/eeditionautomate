@@ -7,6 +7,8 @@ class Product(models.Model):
     product_description = models.CharField(max_length=255)
     product_cost = models.DecimalField(decimal_places=2, max_digits=4)
     product_active = models.BooleanField()
+    def get_absolute_url(self):
+        return "/signup/%i/" % self.id
     def __unicode__(self):
         return self.product_type
 
@@ -15,6 +17,8 @@ class Subscriber(User):
     date_created = models.DateTimeField('created date')
     sub_type = models.ForeignKey(Product)
     #def __unicode__(self):
+    #def get_absolute_url(self):
+      #  return "/signup/%s/%s/" % (self.date_created, 
     #    return self.user_ptr_id    
     def was_published_today(self):
         return self.date_created.date() == datetime.date.today()
