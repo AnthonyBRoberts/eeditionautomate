@@ -1,7 +1,7 @@
 {% block main %}
 <h1>{{ title }}</h1>
 <p>Get yo self an e-edition. Wurd</p>
-<form action="/signup/{{ product.id }}/subscriber_signup/" method="post">
+<form action="{{ object.get_absolute_url }}" method="post">
 {% for object in signup_form %}
 <input type="radio" name="select a product" id="product{{ forloop.counter }}" value="{{ product.id }}" />
     <label for="product{{ forloop.counter }}">{{ object }}</label><br />
@@ -11,7 +11,7 @@
 
 <ul>
 {% for object in signup_form %}
-<li>{{object}}</li>
+<li><a href="{{ object.get_absolute_url }}">{{ object }}</a></li>
 {% endfor %}
 </ul>
 

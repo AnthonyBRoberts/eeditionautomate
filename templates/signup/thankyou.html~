@@ -1,11 +1,12 @@
 {% block main %}
 <h1>{{ title }}</h1>
-<p>We need some information about you so we can deliver your E-edition</p>
+<p>Thank you for signing up</p>
+<!--
 <form action="/signup/{{ product.id }}/subscriber_signup/" method="post">
 {% for object in signup_form %}
 <input type="radio" name="select a product" id="product{{ forloop.counter }}" value="{{ product.id }}" />
     <label for="product{{ forloop.counter }}">{{ object }}</label><br /></li>
 {% endfor %}
 <input type="submit" value="select_product" />
-
+-->
 {% endblock %}

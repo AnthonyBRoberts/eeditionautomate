@@ -1,12 +1,14 @@
 {% block main %}
 <h1>{{ title }}</h1>
 <p>Thank you for signing up</p>
+
 <!--
-<form action="/signup/{{ product.id }}/subscriber_signup/" method="post">
+<form action="/signup/{{ product.id }}/subscriber_signup/" method="post">{% csrf_token %}
 {% for object in signup_form %}
 <input type="radio" name="select a product" id="product{{ forloop.counter }}" value="{{ product.id }}" />
     <label for="product{{ forloop.counter }}">{{ object }}</label><br /></li>
 {% endfor %}
 <input type="submit" value="select_product" />
+<form action="." method="post">{% csrf_token %}
 -->
 {% endblock %}

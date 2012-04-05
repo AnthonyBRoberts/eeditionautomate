@@ -13,5 +13,6 @@ urlpatterns = patterns('',
             template_name='signup/thankyou.html'),
         name='signup_result'),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^accounts/login/$', 'django.contrib.auth.views.login'),
 )
 # /login/<user>/
