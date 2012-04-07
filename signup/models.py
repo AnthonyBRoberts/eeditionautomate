@@ -2,6 +2,7 @@ from django.contrib.auth.models import User, UserManager
 from django.db import models
 import datetime
 from django import forms
+from django.forms import ModelForm
 
 #class SignupForm(forms.Form):
 #    subject = forms.CharField(max_length=100)
@@ -29,6 +30,15 @@ class Subscriber(User):
     #    return self.user_ptr_id    
     def was_published_today(self):
         return self.date_created.date() == datetime.date.today()
+
+class ProductForm(ModelForm):
+    class Meta:
+        model = Product
+        fields = ('product_type',)
+
+class SubscriberForm(ModelForm):
+    class Meta:
+        model = Subscriber
 
 class GetPayment(models.Model):
     payment_made = models.BooleanField()

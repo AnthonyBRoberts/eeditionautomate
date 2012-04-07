@@ -1,24 +1,28 @@
-from eeditionautomate.signup.models import Product, Subscriber, GetPayment
+from eeditionautomate.signup.models import Product, Subscriber, GetPayment, ProductForm, SubscriberForm
 from django.shortcuts import get_object_or_404, render_to_response
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
 from django.core.context_processors import csrf
 from django.contrib.auth.decorators import login_required
-
+from django.forms import ModelForm
 
 
 def select_product(request):
-    if request.user.is_authenticated():
-        c = {}
-        c.update(csrf(request))
-        title = "You are logged in"
-        signup_form = Product.objects.order_by('product_active')
+    title = "get yourself an e-edition. wurd."
+    #form = ProductForm(request.POST)  
+    if request.method == 'POST': # If the form has been submitted...
+        form = SubscriberForm(request.POST) # A form bound to the POST data
+        if form.is_valid(): # All validation rules pass
+            # Process the data in form.cleaned_data
+            # ...
+            return HttpResponseRedirect('signup/index.html') # Redirect after POST
     else:
-        title = "please log in"
-    return render_to_response('signup/index.html', {'signup_form': signup_form, 'title': title}, context_instance=RequestContext(request))
+        form = SubscriberForm() # An unbound form
+    return render_to_response('signup/index.html', {'title': title, 'form': form}, context_instance=RequestContext(request))
+        
 
-
+@login_required
 def subscriber_signup(request, product_id):
     signup = Product.objects.get(id=product_id)
     return render_to_response('signup/thankyou.html', {

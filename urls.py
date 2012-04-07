@@ -2,6 +2,7 @@ from django.conf.urls.defaults import *
 from django.views.generic import DetailView, ListView
 from django.contrib import admin
 from eeditionautomate.signup.models import Product, Subscriber, GetPayment
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -16,3 +17,4 @@ urlpatterns = patterns('',
     url(r'^accounts/login/$', 'django.contrib.auth.views.login'),
 )
 # /login/<user>/
+urlpatterns += staticfiles_urlpatterns()

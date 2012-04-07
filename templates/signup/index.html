@@ -1,18 +1,11 @@
+{% extends "base.html" %}
+
 {% block main %}
 <h1>{{ title }}</h1>
-<p>Get yo self an e-edition. Wurd</p>
+
+
 <form action="{{ object.get_absolute_url }}" method="post">{% csrf_token %}
-{% for object in signup_form %}
-<input type="radio" name="select a product" id="product{{ forloop.counter }}" value="{{ product.id }}" />
-    <label for="product{{ forloop.counter }}">{{ object }}</label><br />
-{% endfor %}
-
-<input type="submit" value="select_product" />
-
-<ul>
-{% for object in signup_form %}
-<li><a href="{{ object.get_absolute_url }}">{{ object }}</a></li>
-{% endfor %}
-</ul>
-
+{{ form.as_p }}
+<input type="submit" value="Submit" />
+</form>
 {% endblock %}
