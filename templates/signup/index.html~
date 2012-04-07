@@ -4,13 +4,8 @@
 <h1>{{ title }}</h1>
 
 
-{{ form }}
-
-<input type="submit" value="select_product" />
-<ul>
-{% for object in signup_form %}
-<li><a href="{{ object.get_absolute_url }}">{{ object }}</a></li>
-{% endfor %}
-</ul>
-
+<form action="thankyou.html" method="post">{% csrf_token %}
+{{ pform.as_p }}
+<input type="submit" value="Submit" />
+</form>
 {% endblock %}

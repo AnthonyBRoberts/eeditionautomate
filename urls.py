@@ -8,7 +8,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     url(r'^signup/$', 'signup.views.select_product', name='select_product'),
     url(r'^signup/(?P<product_id>\d+)/$', 'signup.views.subscriber_signup', name='subscriber_signup'),
-    url(r'^signup/(?P<pk>\d+)/results/$', 
+    url(r'^signup/(?P<pk>\d+)/$', 
         DetailView.as_view(
             model=Subscriber,
             template_name='signup/thankyou.html'),

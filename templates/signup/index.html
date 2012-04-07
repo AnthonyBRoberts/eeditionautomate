@@ -4,8 +4,8 @@
 <h1>{{ title }}</h1>
 
 
-<form action="{{ object.get_absolute_url }}" method="post">{% csrf_token %}
-{{ form.as_p }}
+<form action="detail.html" method="post">{% csrf_token %}
+{{ pform.as_p }}
 <input type="submit" value="Submit" />
 </form>
 {% endblock %}
