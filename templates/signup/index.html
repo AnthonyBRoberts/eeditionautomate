@@ -3,9 +3,18 @@
 {% block main %}
 <h1>{{ title }}</h1>
 
+<ul>
+{% for object in pform %}
+<li><a href="{{ object.get_absolute_url }}">{{ object }}</a></li>
+{% endfor %}
+</ul>
 
-<form action="detail.html" method="post">{% csrf_token %}
+
+<form action="" method="post">{% csrf_token %}
 {{ pform.as_p }}
 <input type="submit" value="Submit" />
 </form>
+
+
+
 {% endblock %}

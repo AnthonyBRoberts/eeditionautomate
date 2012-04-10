@@ -31,6 +31,24 @@ class Subscriber(User):
     def was_published_today(self):
         return self.date_created.date() == datetime.date.today()
 
+class SimpleSubscriber(models.Model):
+    name = models.CharField(max_length=255)
+    address = models.CharField(max_length=200)
+    city = models.CharField(max_length=100)
+    state = models.CharField(max_length=2)
+    zipcode = models.CharField(max_length=9)
+    phone = models.CharField(max_length=10)
+    email = models.EmailField()
+    date_created = models.DateTimeField('created date')
+    sub_type = models.ForeignKey(Product)
+    def __unicode__(self):
+        return self.name
+    #def get_absolute_url(self):
+      #  return "/signup/%s/%s/" % (self.date_created, 
+    #    return self.user_ptr_id    
+    def was_published_today(self):
+        return self.date_created.date() == datetime.date.today()
+
 class ProductForm(ModelForm):
     class Meta:
         model = Product
@@ -38,7 +56,7 @@ class ProductForm(ModelForm):
 
 class SubscriberForm(ModelForm):
     class Meta:
-        model = Subscriber
+        model = SimpleSubscriber
 
 class GetPayment(models.Model):
     payment_made = models.BooleanField()
