@@ -39,15 +39,14 @@ class SimpleSubscriber(models.Model):
     zipcode = models.CharField(max_length=9)
     phone = models.CharField(max_length=10)
     email = models.EmailField()
-    date_created = models.DateTimeField('created date')
+    date_created = models.DateTimeField(null=True)
     sub_type = models.ForeignKey(Product)
     def __unicode__(self):
         return self.name
     #def get_absolute_url(self):
-      #  return "/signup/%s/%s/" % (self.date_created, 
-    #    return self.user_ptr_id    
-    def was_published_today(self):
-        return self.date_created.date() == datetime.date.today()
+        #return "/signup/%s/%s/" % (self.date_created, self.user_ptr_id)    
+    #def was_published_today(self):
+    #    return self.date_created.date() == datetime.date.today()
 
 class ProductForm(ModelForm):
     class Meta:
@@ -57,6 +56,7 @@ class ProductForm(ModelForm):
 class SubscriberForm(ModelForm):
     class Meta:
         model = SimpleSubscriber
+        exclude = ('date_created', 'sub_type',)
 
 class GetPayment(models.Model):
     payment_made = models.BooleanField()
