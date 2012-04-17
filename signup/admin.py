@@ -21,3 +21,11 @@ admin.site.register(GetPayment)
 admin.site.register(Communication)
 admin.site.register(SimpleSubscriber)
 
+class CommonMedia:
+  js = (
+    'https://ajax.googleapis.com/ajax/libs/dojo/1.6.0/dojo/dojo.xd.js',
+    '/appmedia/admin/js/editor.js',
+  )
+  css = {
+    'all': ('/appmedia/admin/css/editor.css',),
+  }

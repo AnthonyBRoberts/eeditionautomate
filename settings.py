@@ -117,9 +117,11 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     #'django.contrib.admindocs',
-    'signup'
+    'signup',
+    'paypal.standard.ipn',
 )
-
+PAYPAL_RECEIVER_EMAIL = "nns.ar_1334418630_biz@gmail.com"
+SITE_NAME = 'enewsautomation.dyndns-mail.com'
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
 # the site admins on every HTTP 500 error.

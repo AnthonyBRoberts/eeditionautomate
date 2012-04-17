@@ -1,20 +1,21 @@
 {% extends "base.html" %}
 
 {% block main %}
-<h1>{{ title }}</h1>
+<h2>{{ title }}</h2>
 
 <ul>
-{% for objects in signup_form %}
-<li><a href="{{ object.get_absolute_url }}">{{ object }}</a></li>
+{% for object in pform %}
+<li>
+  <strong>
+      <a href="{{ object.get_absolute_url }}">{{ object }}</a>
+  </strong>
+</li>
 {% endfor %}
 </ul>
-
 
 <form action="" method="post">{% csrf_token %}
 {{ pform.as_p }}
 <input type="submit" value="Submit" />
 </form>
-
-
 
 {% endblock %}

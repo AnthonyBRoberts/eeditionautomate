@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block main %}
+<h1>Get me some money</h1>
+
+{{ form }}
+
+
+
+{% endblock %}

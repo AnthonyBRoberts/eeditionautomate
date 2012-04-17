@@ -1,4 +1,4 @@
-from signup.models import Subscriber
+from signup.models import Subscriber, SimpleSubscriber
 from signup.models import Product
 from signup.models import GetPayment
 from signup.models import Communication
@@ -19,4 +19,5 @@ admin.site.register(Subscriber, SubscriberAdmin)
 admin.site.register(Product)
 admin.site.register(GetPayment)
 admin.site.register(Communication)
+admin.site.register(SimpleSubscriber)
 
