@@ -15,10 +15,26 @@ class Product(models.Model):
     product_description = models.CharField(max_length=255)
     product_cost = models.DecimalField(decimal_places=2, max_digits=4)
     product_active = models.BooleanField()
+    duration = models.IntegerField()
+    duration_type = models.CharField(max_length=32, choices=[
+    ("day", "Days"),
+    ("week", "Weeks")])
     def get_absolute_url(self):
         return "/signup/%i/" % self.id
     def __unicode__(self):
         return self.product_type
+
+class Subscription(models.Model):
+    product = models.ForeignKey(Product)
+    starts = models.DateField()
+    def expires(self):
+        from datetime import timedelta
+        if self.product.duration_type == "day":
+            days = self.product.duration
+        elif self.product.duration_type == "week":
+            days = self.product.duration * 7
+        return self.starts + timedelta(days=days)
+
 
 class Subscriber(User):
     address = models.CharField(max_length=200)
@@ -41,6 +57,7 @@ class SimpleSubscriber(models.Model):
     email = models.EmailField()
     date_created = models.DateTimeField(null=True)
     sub_type = models.ForeignKey(Product)
+    sub_startdate = models.DateTimeField()
     def __unicode__(self):
         return self.name
     #def get_absolute_url(self):
@@ -56,7 +73,7 @@ class ProductForm(ModelForm):
 class SubscriberForm(ModelForm):
     class Meta:
         model = SimpleSubscriber
-        exclude = ('date_created', 'sub_type',)
+        exclude = ('date_created', 'sub_type', 'sub_startdate')
 
 class GetPayment(models.Model):
     payment_made = models.BooleanField()
@@ -69,5 +86,17 @@ class Communication(models.Model):
     comm_message = models.CharField(max_length=255)
     comm_active = models.BooleanField()
     comm_schedule = models.DateTimeField('communication schedule')
+    """
+    DAYS_OF_WEEK = (
+    (0, 'Monday'),
+    (1, 'Tuesday'),
+    (2, 'Wednesday'),
+    (3, 'Thursday'),
+    (4, 'Friday'),
+    (5, 'Saturday'),
+    (6, 'Sunday'),
+)
+    days = models.CharField(max_length=1, choices=DAYS_OF_WEEK
+    """
     def __unicode__(self):
         return self.comm_name

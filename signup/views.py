@@ -35,6 +35,7 @@ def subscriber_signup(request, product_id):
             subscriber = sform.save(commit=False)
             subscriber.date_created = now
             subscriber.sub_type = productchoice
+            subscriber.sub_startdate = now
             subscriber.save()
             return HttpResponseRedirect('/paypal') # Redirect after POST
     else:
@@ -47,6 +48,7 @@ def thankyou(request, product_id):
     return render_to_response('/paypal', {'title': title}, context_instance=RequestContext(request))
 
 def paypal(request):
+
 # What you want the button to do.
     paypal_dict = {
 "business": settings.PAYPAL_RECEIVER_EMAIL,

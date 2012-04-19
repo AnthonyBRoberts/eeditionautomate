@@ -14,10 +14,10 @@ urlpatterns = patterns('',
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^accounts/login/$', 'django.contrib.auth.views.login'),
     #url(r'^$', 'cat.homepage.views.home', name='home'),
-    url(r'^paypal/$', 'signup.views.paypal', name='paypal'),
+    url(r'^signup/(?P<product_id>\d+)/paypal/$', 'signup.views.paypal', name='paypal'),
 )
 # /login/<user>/
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += patterns('',
-(r'^something/hard/to/guess/', include('paypal.standard.ipn.urls')),enewsautomation.dyndns-mail.com
+(r'^something/hard/to/guess/', include('paypal.standard.ipn.urls'))#,enewsautomation.dyndns-mail.com
 ) 

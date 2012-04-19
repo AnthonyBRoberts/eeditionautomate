@@ -28,7 +28,6 @@ def select_product(request):
 def subscriber_signup(request, product_id):
     productchoice = Product.objects.get(id=product_id)
     now = datetime.datetime.now()
-    productchoicedisplay = productchoice.product_description
     title = "We need some information."  
     if request.method == 'POST': # If the form has been submitted...
         sform = SubscriberForm(request.POST) # A form bound to the POST data
@@ -36,8 +35,9 @@ def subscriber_signup(request, product_id):
             subscriber = sform.save(commit=False)
             subscriber.date_created = now
             subscriber.sub_type = productchoice
+            subscriber.sub_startdate = now
             subscriber.save()
-            return HttpResponseRedirect('/paypal') # Redirect after POST
+            return HttpResponseRedirect('signup/%i/paypal/' % productchoice.id) # Redirect after POST
     else:
         sform = SubscriberForm() # An unbound form
     return render_to_response('signup/detail.html', {'title': title, 'sform': sform, 'productchoice': productchoice, 'now': now.date(),}, context_instance=RequestContext(request))
@@ -47,7 +47,8 @@ def thankyou(request, product_id):
     title = "thank you world"
     return render_to_response('/paypal', {'title': title}, context_instance=RequestContext(request))
 
-def paypal(request):
+def paypal(request, product_id):
+    productchoice = Product.objects.get(id=product_id), 
 # What you want the button to do.
     paypal_dict = {
 "business": settings.PAYPAL_RECEIVER_EMAIL,
