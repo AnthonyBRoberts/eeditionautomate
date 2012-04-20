@@ -21,8 +21,6 @@ class Product(models.Model):
     ("week", "Weeks")])
     def get_absolute_url(self):
         return "/signup/%i/" % self.id
-    def get_absolute_url(self):
-        return "/signup/%i/paypal" % self.id
     def __unicode__(self):
         return self.product_type
 

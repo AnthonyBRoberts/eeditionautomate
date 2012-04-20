@@ -13,7 +13,7 @@ from django.forms import ModelForm
 class Product(models.Model):
     product_type = models.CharField(max_length=100)
     product_description = models.CharField(max_length=255)
-    product_cost = models.DecimalField(decimal_places=2, max_digits=4)
+    product_cost = models.DecimalField(decimal_places=2, max_digits=5)
     product_active = models.BooleanField()
     duration = models.IntegerField()
     duration_type = models.CharField(max_length=32, choices=[
