@@ -7,9 +7,10 @@ from django.core.mail import send_mail
 from eeditionautomate import settings
 from signup.models import Product, SimpleSubscriber, Subscription, Communication
 
-today = datetime.datetime.today()
+today = datetime.date.today()
 products = Product.objects.all()
 subscribers = SimpleSubscriber.objects.all()
+messages = Communication.objects.all()
 
 for object in subscribers:
 
@@ -23,23 +24,42 @@ for object in subscribers:
     else:
         expires = duration
 
-    sub_expires = sub_startdate + timedelta(expires)
-    messages = Communication.objects.all()
+    sub_expires = sub_startdate + timedelta(days=expires)
 
-    if sub_expires < today:
+    if sub_startdate == today:
+        print "Thanks for signing up!"
+        for object in messages:
+            #if object.comm_event == 
+            if object.comm_name == "Thank you for signing up":
+                subject = object.comm_name
+                message = object.comm_message
+                sender = "nns.aroberts@gmail.com"
+                recipients = subscriber_email
+                send_mail(subject, message, sender, [recipients], fail_silently=False)
+            else:
+                pass
+    elif sub_expires > today:
+        print "Current. Oh Long Johnson!"
+        for object in messages:
+            if object.comm_name == "Today's Newspaper":
+                subject = object.comm_name
+                message = object.comm_message
+                sender = "nns.aroberts@gmail.com"
+                recipients = subscriber_email
+                send_mail(subject, message, sender, [recipients], fail_silently=False)
+            else:
+                pass
+    elif sub_expires < today:
         print "Expired, you mutha-fucka!"
         for object in messages:
             if object.comm_name == "Expired":
-        subject = object.comm_name
-        message = object.comm_message
-        sender = "nns.aroberts@gmail.com"
-        recipients = subscriber_email
-        send_mail(subject, message, sender, [recipients], fail_silently=False)
+                subject = object.comm_name
+                message = object.comm_message
+                sender = "nns.aroberts@gmail.com"
+                recipients = subscriber_email
+                send_mail(subject, message, sender, [recipients], fail_silently=False)
             else:
                 pass
-
-    elif sub_expires > today:
-        print "Current. Oh Long Johnson!"
     else:
         print "Something went terribly wrong"
         pass

@@ -7,8 +7,9 @@
 {% for object in pform %}
 <li>
   <strong>
-      <a href="{{ object.get_absolute_url }}">{{ object }}</a>
+      <a href="{{ object.get_absolute_url }}" style="font-size:16px">{{ object }}</a>
   </strong>
+<p>{{ object.product_description }}</p>
 </li>
 {% endfor %}
 </ul>

@@ -14,7 +14,7 @@ urlpatterns = patterns('',
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^accounts/login/$', 'django.contrib.auth.views.login'),
     #url(r'^$', 'cat.homepage.views.home', name='home'),
-    url(r'^paypal/$', 'signup.views.paypal', name='paypal'),
+    url(r'^paypal/(?P<product_id>\d+)/$', 'signup.views.paypal', name='paypal'),
 )
 # /login/<user>/
 urlpatterns += staticfiles_urlpatterns()

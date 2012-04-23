@@ -124,7 +124,7 @@ PAYPAL_RECEIVER_EMAIL = "nns.ar_1334418630_biz@gmail.com"
 SITE_NAME = 'enewsautomation.dyndns-mail.com'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'nns.aroberts@gmail.com'
-EMAIL_HOST_PASSWORD = '********' # do not commit your settings file with your password in it. It would then be public on the web. Commit dummy text and change it immediately after. 
+EMAIL_HOST_PASSWORD = 'Astr0naut' # do not commit your settings file with your password in it. It would then be public on the web. Commit dummy text and change it immediately after. 
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 # A sample logging configuration. The only tangible logging
