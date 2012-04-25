@@ -4,6 +4,8 @@ import datetime
 from django import forms
 from django.forms import ModelForm
 from django.core.mail import send_mail
+from ckeditor.widgets import CKEditor
+from ckeditor.fields import HTMLField
 
 class Product(models.Model):
     product_type = models.CharField(max_length=100)
@@ -50,7 +52,7 @@ class SimpleSubscriber(models.Model):
 
 class Communication(models.Model):
     comm_name = models.CharField(max_length=50)
-    comm_message = models.CharField(max_length=255)
+    comm_message = HTMLField()
     comm_active = models.BooleanField()
     send_now = models.BooleanField()
     #class Admin:

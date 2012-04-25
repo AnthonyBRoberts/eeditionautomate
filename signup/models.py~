@@ -4,6 +4,8 @@ import datetime
 from django import forms
 from django.forms import ModelForm
 from django.core.mail import send_mail
+from ckeditor.widgets import CKEditor
+from ckeditor.fields import HTMLField
 
 class Product(models.Model):
     product_type = models.CharField(max_length=100)
@@ -50,14 +52,14 @@ class SimpleSubscriber(models.Model):
 
 class Communication(models.Model):
     comm_name = models.CharField(max_length=50)
-    comm_message = models.CharField(max_length=255)
+    comm_message = HTMLField(max_length=255)
     comm_active = models.BooleanField()
     send_now = models.BooleanField()
-    class Admin:
+    #class Admin:
         # various admin options are here
-        list_display  = ('comm_name', 'comm_active'),
-        search_fields = ['comm_name',],
-        js = ('/tiny_mce/tiny_mce.js', '/appmedia/admin/js/textareas.js',),
+        #list_display  = ('comm_name', 'comm_active'),
+        #search_fields = ['comm_name',],
+        #js = ('/tiny_mce/tiny_mce.js', '/appmedia/admin/js/textareas.js',),
     comm_schedule = models.DateTimeField('communication schedule')
     DAYS_OF_WEEK = (
     ('0', 'Monday'),

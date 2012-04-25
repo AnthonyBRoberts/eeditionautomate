@@ -39,7 +39,7 @@ for object in subscribers:
             else:
                 pass
     elif sub_expires >= today:
-        print "Current. Oh Long Johnson!"
+        print "This is a current subscriber."
         for object in messages:
             if object.comm_name == "Today's Newspaper":
                 subject = object.comm_name
@@ -50,7 +50,7 @@ for object in subscribers:
             else:
                 pass
     elif sub_expires < today:
-        print "Expired, you mutha-fucka!"
+        print "This subscription is expired."
         for object in messages:
             if object.comm_name == "Expired":
                 subject = object.comm_name

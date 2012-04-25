@@ -56,7 +56,7 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = ''
+STATIC_ROOT = '/'
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
@@ -119,6 +119,7 @@ INSTALLED_APPS = (
     #'django.contrib.admindocs',
     'signup',
     'paypal.standard.ipn',
+    'ckeditor',
 )
 PAYPAL_RECEIVER_EMAIL = "nns.ar_1334418630_biz@gmail.com"
 SITE_NAME = 'enewsautomation.dyndns-mail.com'
@@ -127,6 +128,31 @@ EMAIL_HOST_USER = 'nns.aroberts@gmail.com'
 EMAIL_HOST_PASSWORD = 'Astr0naut' # do not commit your settings file with your password in it. It would then be public on the web. Commit dummy text and change it immediately after. 
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': [
+            [      'Undo', 'Redo',
+              '-', 'Bold', 'Italic', 'Underline',
+              '-', 'Link', 'Unlink', 'Anchor',
+              '-', 'Format',
+              '-', 'SpellChecker', 'Scayt',
+              '-', 'Maximize',
+            ],
+            [      'HorizontalRule',
+              '-', 'Table',
+              '-', 'BulletedList', 'NumberedList',
+              '-', 'Cut','Copy','Paste','PasteText','PasteFromWord',
+              '-', 'SpecialChar',
+              '-', 'Source',
+              '-', 'About',
+            ]
+        ],
+        'width': 600,
+        'height': 300,
+        'toolbarCanCollapse': False,
+    }
+}
+
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
 # the site admins on every HTTP 500 error.

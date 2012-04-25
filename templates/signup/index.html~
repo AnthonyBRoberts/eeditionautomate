@@ -9,14 +9,11 @@
   <strong>
       <a href="{{ object.get_absolute_url }}" style="font-size:16px">{{ object }}</a>
   </strong>
-<p>{{ object.product_description }}</p>
+<p>{{ object.product_cost }} for {{ object.product_description }}</p>
 </li>
 {% endfor %}
 </ul>
 
-<form action="" method="post">{% csrf_token %}
-{{ pform.as_p }}
-<input type="submit" value="Submit" />
-</form>
+
 
 {% endblock %}
