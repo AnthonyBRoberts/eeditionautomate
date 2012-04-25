@@ -3,7 +3,7 @@ from django.db import models
 import datetime
 from django import forms
 from django.forms import ModelForm
-
+from django.core.mail import send_mail
 
 class Product(models.Model):
     product_type = models.CharField(max_length=100)
@@ -30,8 +30,6 @@ class Subscription(models.Model):
             days = self.product.duration * 7
         return self.starts + timedelta(days=days)
 
-#
-
 class SimpleSubscriber(models.Model):
     name = models.CharField(max_length=255)
     address = models.CharField(max_length=200)
@@ -50,27 +48,16 @@ class SimpleSubscriber(models.Model):
     #def was_published_today(self):
     #    return self.date_created.date() == datetime.date.today()
 
-class ProductForm(ModelForm):
-    class Meta:
-        model = Product
-        fields = ('product_type',)
-
-class SubscriberForm(ModelForm):
-    class Meta:
-        model = SimpleSubscriber
-        exclude = ('date_created', 'sub_type', 'sub_startdate')
-
-class GetPayment(models.Model):
-    payment_made = models.BooleanField()
-    payment_amount = models.DecimalField(decimal_places=2, max_digits=4)
-    payment_date = models.DateTimeField('payment date')
-    # payment_type = models.ForeignKey(product_name)
-
 class Communication(models.Model):
     comm_name = models.CharField(max_length=50)
     comm_message = models.CharField(max_length=255)
     comm_active = models.BooleanField()
     send_now = models.BooleanField()
+    class Admin:
+        # various admin options are here
+        list_display  = ('comm_name', 'comm_active'),
+        search_fields = ['comm_name',],
+        js = ('/tiny_mce/tiny_mce.js', '/appmedia/admin/js/textareas.js',),
     comm_schedule = models.DateTimeField('communication schedule')
     DAYS_OF_WEEK = (
     ('0', 'Monday'),
@@ -96,18 +83,28 @@ class Communication(models.Model):
             messages = Communication.objects.all()
             for object in subscribers:
                 subscriber_email = object.email
-            if self.SUBSCRIBER_GROUPS == "Active":
+            for object in messages:
+            #if self.SUBSCRIBER_GROUPS == "Active":
                 subject = object.comm_name
                 message = object.comm_message
                 sender = "nns.aroberts@gmail.com"
                 recipients = subscriber_email
                 send_mail(subject, message, sender, [recipients], fail_silently=False)
-            else:
-                pass
+        else:
+            pass
     def __unicode__(self):
         return self.comm_name    
 
-    
+class ProductForm(ModelForm):
+    class Meta:
+        model = Product
+        fields = ('product_type',)
+
+class SubscriberForm(ModelForm):
+    class Meta:
+        model = SimpleSubscriber
+        exclude = ('date_created', 'sub_type', 'sub_startdate')
+
 class Subscriber(User):
     address = models.CharField(max_length=200)
     date_created = models.DateField('created date')
@@ -118,4 +115,10 @@ class Subscriber(User):
     #    return self.user_ptr_id    
     def was_published_today(self):
         return self.date_created.date() == datetime.date.today()
+
+class GetPayment(models.Model):
+    payment_made = models.BooleanField()
+    payment_amount = models.DecimalField(decimal_places=2, max_digits=4)
+    payment_date = models.DateTimeField('payment date')
+    # payment_type = models.ForeignKey(product_name)
 
