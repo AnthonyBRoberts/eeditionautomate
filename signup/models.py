@@ -70,14 +70,14 @@ class Communication(models.Model):
     ('5', 'Saturday'),
     ('6', 'Sunday'),
 )
-    #days = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple, label="")
+    days = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple, label="")
     days = models.CharField(max_length=1, choices=DAYS_OF_WEEK)
     SUBSCRIBER_GROUPS = (
     ('0', 'Active'),
     ('1', 'Lapsed'),
     ('2', 'All'),
 )
-    #sub_status = models.CharField(max_length=1, choices=SUBSCRIBER_GROUPS)
+    sub_status = models.CharField(max_length=1, choices=SUBSCRIBER_GROUPS)
     def save(self, *args, **kwargs):
         super(Communication, self).save(*args, **kwargs) #Call the "real" save() method.
         if self.send_now == True:

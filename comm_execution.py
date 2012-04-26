@@ -3,7 +3,9 @@ os.environ['DJANGO_SETTINGS_MODULE'] = "eeditionautomate.settings"
 from datetime import timedelta
 from django.core.management import setup_environ
 sys.path.append('/home/anthony/')
+from django.core import mail
 from django.core.mail import send_mail
+from django.core.mail import EmailMultiAlternatives
 from eeditionautomate import settings
 from signup.models import Product, SimpleSubscriber, Subscription, Communication
 
@@ -32,10 +34,13 @@ for object in subscribers:
             #if object.comm_event == 
             if object.comm_name == "Thank you for signing up":
                 subject = object.comm_name
-                message = object.comm_message
-                sender = "nns.aroberts@gmail.com"
-                recipients = subscriber_email
-                send_mail(subject, message, sender, [recipients], fail_silently=False)
+                from_email = 'nns.aroberts@gmail.com'
+                to = subscriber_email
+                text_content = 'text content'
+                html_content = object.comm_message
+                msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+                msg.attach_alternative(html_content, "text/html")
+                msg.send()
             else:
                 pass
     elif sub_expires >= today:
@@ -43,10 +48,13 @@ for object in subscribers:
         for object in messages:
             if object.comm_name == "Today's Newspaper":
                 subject = object.comm_name
-                message = object.comm_message
-                sender = "nns.aroberts@gmail.com"
-                recipients = subscriber_email
-                send_mail(subject, message, sender, [recipients], fail_silently=False)
+                from_email = 'nns.aroberts@gmail.com'
+                to = subscriber_email
+                text_content = 'text content'
+                html_content = object.comm_message
+                msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+                msg.attach_alternative(html_content, "text/html")
+                msg.send()
             else:
                 pass
     elif sub_expires < today:
@@ -54,10 +62,13 @@ for object in subscribers:
         for object in messages:
             if object.comm_name == "Expired":
                 subject = object.comm_name
-                message = object.comm_message
-                sender = "nns.aroberts@gmail.com"
-                recipients = subscriber_email
-                send_mail(subject, message, sender, [recipients], fail_silently=False)
+                from_email = 'nns.aroberts@gmail.com'
+                to = subscriber_email
+                text_content = 'text content'
+                html_content = object.comm_message
+                msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+                msg.attach_alternative(html_content, "text/html")
+                msg.send()
             else:
                 pass
     else:

@@ -52,7 +52,7 @@ class SimpleSubscriber(models.Model):
 
 class Communication(models.Model):
     comm_name = models.CharField(max_length=50)
-    comm_message = HTMLField(max_length=255)
+    comm_message = HTMLField()
     comm_active = models.BooleanField()
     send_now = models.BooleanField()
     #class Admin:

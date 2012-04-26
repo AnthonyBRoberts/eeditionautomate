@@ -123,6 +123,7 @@ INSTALLED_APPS = (
 )
 PAYPAL_RECEIVER_EMAIL = "nns.ar_1334418630_biz@gmail.com"
 SITE_NAME = 'enewsautomation.dyndns-mail.com'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'nns.aroberts@gmail.com'
 EMAIL_HOST_PASSWORD = 'Astr0naut' # do not commit your settings file with your password in it. It would then be public on the web. Commit dummy text and change it immediately after. 
@@ -147,7 +148,7 @@ CKEDITOR_CONFIGS = {
               '-', 'About',
             ]
         ],
-        'width': 840,
+        'width': 600,
         'height': 300,
         'toolbarCanCollapse': False,
     }
