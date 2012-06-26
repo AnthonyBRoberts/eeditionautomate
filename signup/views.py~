@@ -1,4 +1,4 @@
-from eeditionautomate.signup.models import Product, SimpleSubscriber, GetPayment, ProductForm, SubscriberForm
+from eeditionautomate.signup.models import Product, SimpleSubscriber, ProductForm, SubscriberForm
 from django.shortcuts import get_object_or_404, render_to_response
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
@@ -54,7 +54,7 @@ def paypal(request, product_id):
     paypal_dict = {
 "business": settings.PAYPAL_RECEIVER_EMAIL,
 "amount": "%.2f" % productchoice.product_cost,
-"item_name": "name of the item",
+"item_name": "%s" % productchoice.product_type,
 "invoice": "unique-invoice-id",
 "notify_url": "%s%s" % (settings.SITE_NAME, reverse('paypal-ipn')),
 "return_url": "http://www.example.com/your-return-location/",

@@ -1,7 +1,7 @@
 from django.conf.urls.defaults import *
 from django.views.generic import DetailView, ListView
 from django.contrib import admin
-from eeditionautomate.signup.models import Product, Subscriber, GetPayment
+from eeditionautomate.signup.models import Product, Publisher
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls.defaults import patterns, include, url
 admin.autodiscover()

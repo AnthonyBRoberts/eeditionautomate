@@ -1,4 +1,4 @@
-from eeditionautomate.signup.models import Product, SimpleSubscriber, GetPayment, ProductForm, SubscriberForm
+from eeditionautomate.signup.models import Product, SimpleSubscriber, ProductForm, SubscriberForm
 from django.shortcuts import get_object_or_404, render_to_response
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
@@ -13,7 +13,7 @@ import datetime
 
 def select_product(request):
     title = "Please select your subscription"
-    pform = Product.objects.order_by('-duration').exclude(product_active=False)
+    pform = Product.objects.order_by('-duration').exclude(product_active=False)#objects.filter(publisher=request.user)
     if request.method == 'POST': # If the form has been submitted...
         pform = ProductForm(request.POST) # A form bound to the POST data
         if pform.is_valid(): # All validation rules pass 

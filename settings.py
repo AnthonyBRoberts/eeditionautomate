@@ -1,10 +1,10 @@
 # Django settings for eeditionautomate project.
 
-DEBUG = True
-TEMPLATE_DEBUG = DEBUG
+DEBUG = TEMPLATE_DEBUG = True
+
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+     ('Anthony Roberts', 'nns.aroberts@gmail.com'),
 )
 
 MANAGERS = ADMINS
@@ -90,6 +90,8 @@ TEMPLATE_LOADERS = (
 #     'django.template.loaders.eggs.Loader',
 )
 
+AUTH_PROFILE_MODULE = "accounts.UserProfile"
+
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -120,13 +122,14 @@ INSTALLED_APPS = (
     'signup',
     'paypal.standard.ipn',
     'ckeditor',
+    'django_extensions',
 )
 PAYPAL_RECEIVER_EMAIL = "nns.ar_1334418630_biz@gmail.com"
 SITE_NAME = 'enewsautomation.dyndns-mail.com'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'nns.aroberts@gmail.com'
-EMAIL_HOST_PASSWORD = '********' # do not commit your settings file with your password in it. It would then be public on the web. Commit dummy text and change it immediately after. 
+EMAIL_HOST_PASSWORD = 'Astr0naut' # do not commit your settings file with your password in it. It would then be public on the web. Commit dummy text and change it immediately after. 
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 CKEDITOR_CONFIGS = {

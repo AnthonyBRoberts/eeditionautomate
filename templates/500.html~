@@ -6,7 +6,7 @@
 {% block title %}{% trans 'Server error (500) - i.e. you suck at coding' %}{% endblock %}
 
 {% block content %}
-<h1>{% trans 'Server Error <em>(500)</em> - Coding FAIL!!!!' %}</h1>
+<h1>{% trans 'Server Error (500) - <em>Coding FAIL!!!!</em>' %}</h1>
 <p>{% trans "Someone sucks at writing python code. It's been reported to the site administrators via e-mail and he will be shamed and riduculed by others, as well as beaten with a blunt object for his incompetence." %}</p>
 
 {% endblock %}

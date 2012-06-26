@@ -1,12 +1,16 @@
-{% extends "admin/base_site.html" %}
-{% load i18n %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+    "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+    <title>Page unavailable</title>
+</head>
+<body>
+    <h1>Page unavailable</h1>
 
-{% block breadcrumbs %}<div class="breadcrumbs"><a href="/">{% trans "Home" %}</a> &rsaquo; {% trans "Server error" %}</div>{% endblock %}
+    <p>Sorry, but the requested page is unavailable due to a
+    server hiccup.</p>
 
-{% block title %}{% trans 'Server error (500) - i.e. you suck at coding' %}{% endblock %}
+    <p>Our engineers have been notified, so check back later.</p>
+</body>
+</html>
 
-{% block content %}
-<h1>{% trans 'Server Error (500) - <em>Coding FAIL!!!!</em>' %}</h1>
-<p>{% trans "Someone sucks at writing python code. It's been reported to the site administrators via e-mail and he will be shamed and riduculed by others, as well as beaten with a blunt object for his incompetence." %}</p>
-
-{% endblock %}

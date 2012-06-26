@@ -7,7 +7,23 @@ from django.core.mail import send_mail
 from ckeditor.widgets import CKEditor
 from ckeditor.fields import HTMLField
 
+
+class Publisher(models.Model):
+    name = models.CharField(max_length=55)
+    email = models.EmailField()
+    start_date = models.DateField()
+    def __unicode__(self):
+        return self.name
+
+class UserProfile(models.Model):
+    user = models.ForeignKey(User, unique=True)
+    publisher = models.ForeignKey(Publisher)
+    def __unicode__(self):
+        return "%s: %s" % (self.user.get_full_name(), self.publisher.name)
+
+
 class Product(models.Model):
+    publisher = models.ForeignKey(User)
     product_type = models.CharField(max_length=100)
     product_description = models.CharField(max_length=255)
     product_cost = models.DecimalField(decimal_places=2, max_digits=5)
@@ -22,6 +38,7 @@ class Product(models.Model):
         return self.product_type
 
 class Subscription(models.Model):
+    publisher = models.ForeignKey(User)
     product = models.ForeignKey(Product)
     starts = models.DateField()
     def expires(self):
@@ -33,6 +50,7 @@ class Subscription(models.Model):
         return self.starts + timedelta(days=days)
 
 class SimpleSubscriber(models.Model):
+    publisher = models.ForeignKey(User)
     name = models.CharField(max_length=255)
     address = models.CharField(max_length=200)
     city = models.CharField(max_length=100)
@@ -45,12 +63,12 @@ class SimpleSubscriber(models.Model):
     sub_startdate = models.DateField()
     def __unicode__(self):
         return self.name
-    #def get_absolute_url(self):
-        #return "/signup/%s/%s/" % (self.date_created, self.user_ptr_id)    
+    
     #def was_published_today(self):
-    #    return self.date_created.date() == datetime.date.today()
+        #return self.date_created.date() == datetime.date.today()
 
 class Communication(models.Model):
+    publisher = models.ForeignKey(User)
     comm_name = models.CharField(max_length=50)
     comm_message = HTMLField()
     comm_active = models.BooleanField()
@@ -98,23 +116,18 @@ class Communication(models.Model):
         return self.comm_name    
 
 class ProductForm(ModelForm):
+    publisher = models.ForeignKey(Publisher)
     class Meta:
         model = Product
         fields = ('product_type',)
 
 class SubscriberForm(ModelForm):
+    publisher = models.ForeignKey(Publisher)
     class Meta:
         model = SimpleSubscriber
         exclude = ('date_created', 'sub_type', 'sub_startdate')
-
-class Subscriber(User):
-    address = models.CharField(max_length=200)
-    date_created = models.DateField('created date')
-    sub_type = models.ForeignKey(Product)
-    #def __unicode__(self):
-    #def get_absolute_url(self):
-      #  return "/signup/%s/%s/" % (self.date_created, 
-    #    return self.user_ptr_id    
+"""
+class Publisher(User):   
     def was_published_today(self):
         return self.date_created.date() == datetime.date.today()
 
@@ -123,4 +136,4 @@ class GetPayment(models.Model):
     payment_amount = models.DecimalField(decimal_places=2, max_digits=4)
     payment_date = models.DateTimeField('payment date')
     # payment_type = models.ForeignKey(product_name)
-
+"""

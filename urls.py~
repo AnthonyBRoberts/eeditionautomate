@@ -1,7 +1,7 @@
 from django.conf.urls.defaults import *
 from django.views.generic import DetailView, ListView
 from django.contrib import admin
-from eeditionautomate.signup.models import Product, Subscriber, GetPayment
+from eeditionautomate.signup.models import Product, Publisher
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls.defaults import patterns, include, url
 admin.autodiscover()
@@ -14,7 +14,7 @@ urlpatterns = patterns('',
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^accounts/login/$', 'django.contrib.auth.views.login'),
     #url(r'^$', 'cat.homepage.views.home', name='home'),
-    url(r'^paypal/$', 'signup.views.paypal', name='paypal'),
+    url(r'^paypal/(?P<product_id>\d+)/$', 'signup.views.paypal', name='paypal'),
 )
 # /login/<user>/
 urlpatterns += staticfiles_urlpatterns()
