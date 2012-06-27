@@ -15,15 +15,14 @@ class Publisher(models.Model):
     def __unicode__(self):
         return self.name
 
-class UserProfile(models.Model):
-    user = models.ForeignKey(User, unique=True)
-    publisher = models.ForeignKey(Publisher)
+class PublisherUserProfile(models.Model):
+    publisher = models.ForeignKey(Publisher, unique=True)
     def __unicode__(self):
         return "%s: %s" % (self.user.get_full_name(), self.publisher.name)
 
 
 class Product(models.Model):
-    publisher = models.ForeignKey(Publisher)
+    publisher = models.ForeignKey(User)
     product_type = models.CharField(max_length=100)
     product_description = models.CharField(max_length=255)
     product_cost = models.DecimalField(decimal_places=2, max_digits=5)
@@ -38,7 +37,7 @@ class Product(models.Model):
         return self.product_type
 
 class Subscription(models.Model):
-    publisher = models.ForeignKey(Publisher)
+    publisher = models.ForeignKey(User)
     product = models.ForeignKey(Product)
     starts = models.DateField()
     def expires(self):
@@ -50,7 +49,7 @@ class Subscription(models.Model):
         return self.starts + timedelta(days=days)
 
 class SimpleSubscriber(models.Model):
-    publisher = models.ForeignKey('auth.User')
+    publisher = models.ForeignKey(User)
     name = models.CharField(max_length=255)
     address = models.CharField(max_length=200)
     city = models.CharField(max_length=100)
@@ -59,10 +58,15 @@ class SimpleSubscriber(models.Model):
     phone = models.CharField(max_length=10)
     email = models.EmailField()
     date_created = models.DateField(null=True)
-    sub_type = models.ForeignKey(Product)
+    sub_type = models.ForeignKey(Product, limit_choices_to = {'sub_type': request.user})
     sub_startdate = models.DateField()
+
+    #class Meta:
+        #unique_together = ("publisher", "sub_type")
+
     def __unicode__(self):
         return self.name
+
     
     #def was_published_today(self):
         #return self.date_created.date() == datetime.date.today()

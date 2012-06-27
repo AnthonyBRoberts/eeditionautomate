@@ -15,9 +15,8 @@ class Publisher(models.Model):
     def __unicode__(self):
         return self.name
 
-class UserProfile(models.Model):
-    user = models.ForeignKey(User, unique=True)
-    publisher = models.ForeignKey(Publisher)
+class PublisherUserProfile(models.Model):
+    publisher = models.ForeignKey(Publisher, unique=True)
     def __unicode__(self):
         return "%s: %s" % (self.user.get_full_name(), self.publisher.name)
 
@@ -61,8 +60,13 @@ class SimpleSubscriber(models.Model):
     date_created = models.DateField(null=True)
     sub_type = models.ForeignKey(Product)
     sub_startdate = models.DateField()
+
+    #class Meta:
+        #unique_together = ("publisher", "sub_type")
+
     def __unicode__(self):
         return self.name
+
     
     #def was_published_today(self):
         #return self.date_created.date() == datetime.date.today()
