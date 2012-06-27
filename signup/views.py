@@ -13,7 +13,7 @@ import datetime
 
 def select_product(request):
     title = "Please select your subscription"
-    pform = Product.objects.order_by('-duration').exclude(product_active=False)#objects.filter(publisher=request.user)
+    pform = Product.objects.order_by('-duration').exclude(product_active=False).filter(publisher=request.user)
     if request.method == 'POST': # If the form has been submitted...
         pform = ProductForm(request.POST) # A form bound to the POST data
         if pform.is_valid(): # All validation rules pass 
@@ -36,6 +36,7 @@ def subscriber_signup(request, product_id):
             subscriber.date_created = now
             subscriber.sub_type = productchoice
             subscriber.sub_startdate = now
+            subscriber.publisher = request.user
             subscriber.save()
             return HttpResponseRedirect('/paypal/%i' % productchoice.id) # Redirect after POST
     else:

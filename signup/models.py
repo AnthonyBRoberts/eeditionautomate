@@ -129,7 +129,7 @@ class SubscriberForm(ModelForm):
     publisher = models.ForeignKey(Publisher)
     class Meta:
         model = SimpleSubscriber
-        exclude = ('date_created', 'sub_type', 'sub_startdate')
+        exclude = ('date_created', 'sub_type', 'sub_startdate', 'publisher')
 """
 class Publisher(User):   
     def was_published_today(self):

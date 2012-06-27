@@ -47,8 +47,10 @@ class SimpleSubscriberAdmin(admin.ModelAdmin):
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "sub_type":
             subtype = Product.objects.all()
-            kwargs["queryset"] = SimpleSubscriber.subtype.filter(publisher=request.user)
-            #assert False, SimpleSubscriber.sub_type.filter(request.user
+            if not request.user.is_superuser:
+                kwargs["queryset"] = subtype.filter(publisher=request.user)
+            else:
+                kwargs["queryset"] = subtype.objects.all()
         return super(SimpleSubscriberAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
     def get_form(self, request, obj=None, **kwargs):

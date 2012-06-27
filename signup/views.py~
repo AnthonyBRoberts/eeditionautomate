@@ -13,7 +13,7 @@ import datetime
 
 def select_product(request):
     title = "Please select your subscription"
-    pform = Product.objects.order_by('-duration').exclude(product_active=False)
+    pform = Product.objects.order_by('-duration').exclude(product_active=False).filter(publisher=request.user)
     if request.method == 'POST': # If the form has been submitted...
         pform = ProductForm(request.POST) # A form bound to the POST data
         if pform.is_valid(): # All validation rules pass 
@@ -26,6 +26,7 @@ def select_product(request):
         
 
 def subscriber_signup(request, product_id):
+    obj.publisher = request.user
     productchoice = Product.objects.get(id=product_id)
     now = datetime.date.today()
     title = "We need some information."  
