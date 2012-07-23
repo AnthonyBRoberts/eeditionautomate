@@ -26,22 +26,17 @@ class ProductAdmin(admin.ModelAdmin):
         if request.user.is_superuser:
             return Product.objects.all()
         return Product.objects.filter(publisher=request.user)
-
+"""
     def save_model(self, request, obj, form, change):
         if not change:
             obj.publisher = request.user
         obj.save()
-
+"""
 class SimpleSubscriberAdmin(admin.ModelAdmin):
 
-    #fieldsets = [
-        #('User information', {'fields': ['name', 'address', 'city', 'state', 'zipcode', 'email',]}),
-        #('system information', {'fields': ['date_created', 'sub_startdate', 'sub_type',]}),
-        #('Publisher', {'fields': ['publisher',]}),
-    #]
-    list_display = ('name', 'email', 'address', 'city', 'zipcode')
+    list_display = ('first_name', 'last_name', 'email', 'address', 'city', 'zipcode')
     list_filter = ['sub_type',]
-    search_fields = ['name', 'email',]
+    search_fields = ['last_name', 'email',]
     date_hierarchy = 'date_created'
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
@@ -50,14 +45,14 @@ class SimpleSubscriberAdmin(admin.ModelAdmin):
             if not request.user.is_superuser:
                 kwargs["queryset"] = subtype.filter(publisher=request.user)
             else:
-                kwargs["queryset"] = subtype.objects.all()
+                kwargs["queryset"] = subtype
         return super(SimpleSubscriberAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
     def get_form(self, request, obj=None, **kwargs):
         if not request.user.is_superuser:
-            kwargs['fields'] = ['name', 'address', 'city', 'state', 'zipcode', 'email', 'date_created', 'sub_startdate', 'sub_type',]
+            kwargs['fields'] = ['first_name', 'last_name', 'username', 'password', 'address', 'city', 'state', 'zipcode', 'email', 'date_created', 'sub_startdate', 'sub_type',]
         else:
-            kwargs['fields'] = ['name', 'address', 'city', 'state', 'zipcode', 'email', 'date_created', 'sub_startdate', 'sub_type', 'publisher',]
+            kwargs['fields'] = ['first_name', 'last_name', 'username', 'password', 'address', 'city', 'state', 'zipcode', 'email', 'date_created', 'sub_startdate', 'sub_type', 'publisher',]
 
         return super(SimpleSubscriberAdmin, self).get_form(request, obj, **kwargs)
 
@@ -67,8 +62,9 @@ class SimpleSubscriberAdmin(admin.ModelAdmin):
         return SimpleSubscriber.objects.filter(publisher=request.user)
 
     def save_model(self, request, obj, form, change):
-        if not change:
-            obj.publisher = request.user
+        if not request.user.is_superuser:
+            obj.publisher = Publisher.objects.get(id = request.user.id)
+
         obj.save()
 
     def has_change_permission(self, request, obj=None):

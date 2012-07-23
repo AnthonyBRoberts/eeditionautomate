@@ -1,31 +1,41 @@
-from eeditionautomate.signup.models import Product, SimpleSubscriber, ProductForm, SubscriberForm
+from eeditionautomate.signup.models import Publisher, Product, SimpleSubscriber, ProductForm, SubscriberForm, User
 from django.shortcuts import get_object_or_404, render_to_response
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
 from django.core.context_processors import csrf
 from django.contrib.auth.decorators import login_required
+from django.contrib.formtools.preview import FormPreview
 from django.forms import ModelForm
 from paypal.standard.forms import PayPalPaymentsForm
 from django.conf import settings
 import datetime
 
 
-def select_product(request):
+def select_product(request, publisher_id):
+    #p = get_object_or_404(Product, pk=product)
+    publisher = Publisher.objects.get(id=publisher_id)
     title = "Please select your subscription"
-    pform = Product.objects.order_by('-duration').exclude(product_active=False).filter(publisher=request.user)
+    pform = Product.objects.order_by('-duration').exclude(product_active=False).filter(publisher=publisher_id)
+    """
+    try:
+        selected_product = p.choice_set.get(pk=request.POST['product'])
+    except (KeyError, Choice.DoesNotExist):
+        return render_to_response('signup/
+"""
     if request.method == 'POST': # If the form has been submitted...
         pform = ProductForm(request.POST) # A form bound to the POST data
         if pform.is_valid(): # All validation rules pass 
-            # ...
-            return HttpResponseRedirect('signup/%i' % pform.id) # Redirect after POST
+            url = reverse('subscriber_signup', args={'product_id': product_id, 'publisher_id': publisher_id})
+            return HttpResponseRedirect(url) # Redirect after POST
     else:
         form = ProductForm() # An unbound form
-    return render_to_response('signup/index.html', {'title': title, 'pform': pform}, context_instance=RequestContext(request))
-    return 
+    return render_to_response('signup/index.html', {'publisher': publisher, 'title': title, 'pform': pform,}, context_instance=RequestContext(request, publisher_id))
+
         
 
-def subscriber_signup(request, product_id):
+def subscriber_signup(request, publisher_id, product_id):
+    publisher = Publisher.objects.get(id=publisher_id)
     productchoice = Product.objects.get(id=product_id)
     now = datetime.date.today()
     title = "We need some information."  
@@ -33,25 +43,27 @@ def subscriber_signup(request, product_id):
         sform = SubscriberForm(request.POST) # A form bound to the POST data
         if sform.is_valid(): # All validation rules pass
             subscriber = sform.save(commit=False)
+            #subscriber.username = email
             subscriber.date_created = now
             subscriber.sub_type = productchoice
             subscriber.sub_startdate = now
-            subscriber.publisher = request.user
+            subscriber.publisher = Publisher.objects.get(id=publisher_id)
             subscriber.save()
-            return HttpResponseRedirect('/paypal/%i' % productchoice.id) # Redirect after POST
+            return HttpResponseRedirect('/signup/%s/%s/paypal/' % (publisher_id, product_id)) # Redirect after POST
     else:
         sform = SubscriberForm() # An unbound form
-    return render_to_response('signup/detail.html', {'title': title, 'sform': sform, 'productchoice': productchoice, 'now': now,}, context_instance=RequestContext(request))
+    return render_to_response('signup/detail.html', {'publisher': publisher, 'title': title, 'sform': sform, 'productchoice': productchoice, 'now': now,}, context_instance=RequestContext(request))
    
 
-def thankyou(request, product_id):
-    title = "thank you world"
-    return render_to_response('/paypal', {'title': title}, context_instance=RequestContext(request))
+#def thankyou(request, product_id):
+#    title = "thank you world"
+#    return render_to_response('/paypal', {'title': title}, context_instance=RequestContext(request))
 
-def paypal(request, product_id):
+def paypal(request, publisher_id, product_id):
 
 # What you want the button to do.
     productchoice = Product.objects.get(id=product_id)
+    publisher = Publisher.objects.get(id=publisher_id)
     paypal_dict = {
 "business": settings.PAYPAL_RECEIVER_EMAIL,
 "amount": "%.2f" % productchoice.product_cost,
@@ -66,7 +78,7 @@ def paypal(request, product_id):
     form = PayPalPaymentsForm(initial=paypal_dict)
     context = {"form": form.sandbox(), "productchoice": productchoice}
     return render_to_response("signup/paypal.html", context)
-# paypal.html
+
 
 """
 @require_POST

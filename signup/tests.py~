@@ -1,7 +1,7 @@
 from django.test import TestCase
-from signup.models import Product, Publisher
+from signup.models import Product
 from django.contrib.auth.models import User
-"""
+
 class ProductModelTest(TestCase):
     def test_creating_new_products_and_saving_to_db(self):
 
@@ -9,7 +9,7 @@ class ProductModelTest(TestCase):
 
 
         product = Product()
-        user = publisher.objects.get(id=user_id)
+        user = User.objects.get(id=user_id)
         product.publisher.user = user
         product.product_type = "1 year"
         product.product_description = "52 weeks"
@@ -29,5 +29,5 @@ class ProductModelTest(TestCase):
         
         #check that it saved attributes
         self.assertEquals(most_recent_product_added.product_type, "1 year")
-"""
+
 

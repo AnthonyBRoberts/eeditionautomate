@@ -1,28 +1,27 @@
-from django.contrib.auth.models import User, UserManager
-from django.db import models
 import datetime
+from django.contrib.auth.models import User, UserManager
+from django.contrib.localflavor.us.models import USStateField
+from django.db import models
 from django import forms
 from django.forms import ModelForm
+from django.forms.models import modelform_factory
 from django.core.mail import send_mail
 from ckeditor.widgets import CKEditor
 from ckeditor.fields import HTMLField
 
 
-class Publisher(models.Model):
-    name = models.CharField(max_length=55)
-    email = models.EmailField()
-    start_date = models.DateField()
+class Publisher(User):
     def __unicode__(self):
-        return self.name
+        return self.get_full_name()
 
 class PublisherUserProfile(models.Model):
     publisher = models.ForeignKey(Publisher, unique=True)
     def __unicode__(self):
-        return "%s: %s" % (self.user.get_full_name(), self.publisher.name)
+        return "%s: %s" % (self.user.get_full_name(), self.publisher.first_name)
 
 
 class Product(models.Model):
-    publisher = models.ForeignKey(User)
+    publisher = models.ForeignKey(Publisher)
     product_type = models.CharField(max_length=100)
     product_description = models.CharField(max_length=255)
     product_cost = models.DecimalField(decimal_places=2, max_digits=5)
@@ -31,13 +30,14 @@ class Product(models.Model):
     duration_type = models.CharField(max_length=32, choices=[
     ("day", "Days"),
     ("week", "Weeks")])
+    @models.permalink
     def get_absolute_url(self):
-        return "/signup/%i/" % self.id
+        return ('subscriber_signup', (), {'publisher_id': self.publisher_id, 'product_id': self.id})
     def __unicode__(self):
         return self.product_type
 
 class Subscription(models.Model):
-    publisher = models.ForeignKey(User)
+    publisher = models.ForeignKey(Publisher)
     product = models.ForeignKey(Product)
     starts = models.DateField()
     def expires(self):
@@ -48,15 +48,13 @@ class Subscription(models.Model):
             days = self.product.duration * 7
         return self.starts + timedelta(days=days)
 
-class SimpleSubscriber(models.Model):
-    publisher = models.ForeignKey(User)
-    name = models.CharField(max_length=255)
+class SimpleSubscriber(User):
+    publisher = models.ForeignKey(Publisher)
     address = models.CharField(max_length=200)
     city = models.CharField(max_length=100)
-    state = models.CharField(max_length=2)
+    state = USStateField()
     zipcode = models.CharField(max_length=9)
     phone = models.CharField(max_length=10)
-    email = models.EmailField()
     date_created = models.DateField(null=True)
     sub_type = models.ForeignKey(Product)
     sub_startdate = models.DateField()
@@ -65,14 +63,14 @@ class SimpleSubscriber(models.Model):
         #unique_together = ("publisher", "sub_type")
 
     def __unicode__(self):
-        return self.name
+        return self.last_name
 
     
     #def was_published_today(self):
         #return self.date_created.date() == datetime.date.today()
 
 class Communication(models.Model):
-    publisher = models.ForeignKey(User)
+    publisher = models.ForeignKey(Publisher)
     comm_name = models.CharField(max_length=50)
     comm_message = HTMLField()
     comm_active = models.BooleanField()
@@ -129,15 +127,5 @@ class SubscriberForm(ModelForm):
     publisher = models.ForeignKey(Publisher)
     class Meta:
         model = SimpleSubscriber
-        exclude = ('date_created', 'sub_type', 'sub_startdate')
-"""
-class Publisher(User):   
-    def was_published_today(self):
-        return self.date_created.date() == datetime.date.today()
+        exclude = ('username', 'is_staff', 'is_active', 'is_superuser', 'date_created', 'sub_type', 'sub_startdate', 'publisher', 'groups', 'user_permissions', 'last_login', 'date_joined',)
 
-class GetPayment(models.Model):
-    payment_made = models.BooleanField()
-    payment_amount = models.DecimalField(decimal_places=2, max_digits=4)
-    payment_date = models.DateTimeField('payment date')
-    # payment_type = models.ForeignKey(product_name)
-"""

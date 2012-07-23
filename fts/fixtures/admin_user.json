@@ -1,0 +1,110 @@
+[
+  {
+    "pk": 1,
+    "model": "auth.user",
+    "fields": {
+      "username": "anthony",
+      "first_name": "",
+      "last_name": "",
+      "is_active": true,
+      "is_superuser": true,
+      "is_staff": true,
+      "last_login": "2012-07-18 14:32:34",
+      "groups": [],
+      "user_permissions": [],
+      "password": "sha1$b5ed1$ba889a49d842df5cbf2b8bdfd3a2f35946f25894",
+      "email": "nns.aroberts@gmail.com",
+      "date_joined": "2012-06-03 04:26:04"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "auth.user",
+    "fields": {
+      "username": "test_123",
+      "first_name": "test_123",
+      "last_name": "McTesterson",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": true,
+      "last_login": "2012-06-27 08:46:28",
+      "groups": [],
+      "user_permissions": [
+        40,
+        41,
+        42,
+        31,
+        32,
+        33,
+        37,
+        38,
+        39,
+        34,
+        35,
+        36
+      ],
+      "password": "sha1$b6fab$ae1e698acd9349682fb5d4800382f948a94865f7",
+      "email": "testy@test.com",
+      "date_joined": "2012-06-03 04:27:39"
+    }
+  },
+  {
+    "pk": 3,
+    "model": "auth.user",
+    "fields": {
+      "username": "publisher1",
+      "first_name": "test",
+      "last_name": "McTesterson",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": true,
+      "last_login": "2012-06-27 09:30:50",
+      "groups": [],
+      "user_permissions": [
+        40,
+        41,
+        42,
+        31,
+        32,
+        33,
+        37,
+        38,
+        39,
+        34,
+        35,
+        36
+      ],
+      "password": "sha1$0e807$593d8ee6210223825cd1be9157cf4e7d58832de4",
+      "email": "nns.aroberts@gmail.com",
+      "date_joined": "2012-06-26 10:56:03"
+    }
+  },
+  {
+    "pk": 4,
+    "model": "auth.user",
+    "fields": {
+      "username": "publisher2",
+      "first_name": "publisher2",
+      "last_name": "publisher2",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": true,
+      "last_login": "2012-06-27 08:47:47",
+      "groups": [],
+      "user_permissions": [
+        40,
+        41,
+        42,
+        31,
+        32,
+        33,
+        37,
+        38,
+        39
+      ],
+      "password": "sha1$428f7$00429b1734a3f3de51966c7ee209a6ab32e127f2",
+      "email": "nns.aroberts@gmail.com",
+      "date_joined": "2012-06-27 08:28:03"
+    }
+  }
+]
