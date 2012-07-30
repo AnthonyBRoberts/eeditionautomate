@@ -12,7 +12,8 @@ from ckeditor.fields import HTMLField
 
 class Publisher(User):
     def __unicode__(self):
-        return self.get_full_name()
+        return self.publisher.first_name
+        #return self.get_full_name()
 
 class PublisherUserProfile(models.Model):
     publisher = models.ForeignKey(Publisher, unique=True)
@@ -65,9 +66,15 @@ class SimpleSubscriber(User):
     def __unicode__(self):
         return self.last_name
 
-    
-    #def was_published_today(self):
-        #return self.date_created.date() == datetime.date.today()
+class FileUploader(models.Model):
+    publisher = models.ForeignKey(Publisher)
+    title = models.CharField(max_length=50)
+    file = models.FileField(upload_to='uploads')
+
+    def __unicode__(self):
+        return self.title
+
+
 
 class Communication(models.Model):
     publisher = models.ForeignKey(Publisher)
@@ -128,9 +135,10 @@ class SubscriberForm(ModelForm):
     class Meta:
         model = SimpleSubscriber
         exclude = ('email', 'is_staff', 'is_active', 'is_superuser', 'date_created', 'sub_type', 'sub_startdate', 'publisher', 'groups', 'user_permissions', 'last_login', 'date_joined',)
-    username = forms.EmailField(max_length=75, help_text="Email Address")
-
+    username = forms.EmailField(label="Email address", max_length=75)
+    password = forms.CharField(label="Password", help_text="")
     def clean_email(self):
         email = self.cleaned_data['username']
         return email
+    
 

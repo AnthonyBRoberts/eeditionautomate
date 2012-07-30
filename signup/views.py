@@ -43,7 +43,7 @@ def subscriber_signup(request, publisher_id, product_id):
         sform = SubscriberForm(request.POST) # A form bound to the POST data
         if sform.is_valid(): # All validation rules pass
             subscriber = sform.save(commit=False)
-            #subscriber.username = email
+            subscriber.email = subscriber.username
             subscriber.date_created = now
             subscriber.sub_type = productchoice
             subscriber.sub_startdate = now
@@ -78,6 +78,7 @@ def paypal(request, publisher_id, product_id):
     form = PayPalPaymentsForm(initial=paypal_dict)
     context = {"form": form.sandbox(), "productchoice": productchoice}
     return render_to_response("signup/paypal.html", context)
+
 
 
 """

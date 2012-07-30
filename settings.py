@@ -27,7 +27,13 @@ DATABASES = {
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
-
+DB_FILES = {
+    'db_table': 'FILES',
+    'fname_column':  'FILE_NAME',
+    'blob_column': 'BLOB',
+    'size_column': 'SIZE',
+    'base_url': 'http://localhost/dbfiles/'
+}
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
@@ -125,12 +131,12 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.formtools',
     'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
-    #'django.contrib.admindocs',
+    'storages',
+    'django.contrib.admindocs',
     'signup',
     'paypal.standard.ipn',
     'ckeditor',
-    'south',
+    #'south',
     'django_extensions',
     'django_nose',
     'fts',
@@ -140,7 +146,7 @@ SITE_NAME = 'enewsautomation.dyndns-mail.com'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'nns.aroberts@gmail.com'
-EMAIL_HOST_PASSWORD = '########' # do not commit your settings file with your password in it. It would then be public on the web. Commit dummy text and change it immediately after. 
+EMAIL_HOST_PASSWORD = 'Astr0naut' # do not commit your settings file with your password in it. It would then be public on the web. Commit dummy text and change it immediately after. 
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 CKEDITOR_CONFIGS = {
