@@ -12,9 +12,9 @@ ADMINS = (
 MANAGERS = ADMINS
 
 # so that "python manage.py test" invokes django-nose-selenium
-TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+#TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 # should match SELENIUM_URL_ROOT which defaults to http://127.0.0.1
-LIVE_SERVER_PORT = 8000
+#LIVE_SERVER_PORT = 8000
 
 DATABASES = {
     'default': {
@@ -27,6 +27,7 @@ DATABASES = {
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
+"""
 DB_FILES = {
     'db_table': 'FILES',
     'fname_column':  'FILE_NAME',
@@ -34,6 +35,7 @@ DB_FILES = {
     'size_column': 'SIZE',
     'base_url': 'http://localhost/dbfiles/'
 }
+"""
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
@@ -131,15 +133,15 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.formtools',
     'django.contrib.admin',
-    'storages',
+    #'storages',
     'django.contrib.admindocs',
     'signup',
     'paypal.standard.ipn',
     'ckeditor',
-    'south',
-    'django_extensions',
-    'django_nose',
-    'fts',
+    #'south',
+    #'django_extensions',
+    #'django_nose',
+    #'fts',
 )
 PAYPAL_RECEIVER_EMAIL = "nns.ar_1334418630_biz@gmail.com"
 SITE_NAME = 'enewsautomation.dyndns-mail.com'

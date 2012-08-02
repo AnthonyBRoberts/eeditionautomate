@@ -46,6 +46,7 @@ class FileUploaderAdmin(admin.ModelAdmin):
         if request.user.is_superuser:
             return FileUploader.objects.all()
         return FileUploader.objects.filter(publisher=request.user)
+
 """
     def upload_file(request):
         if request.method == 'POST':

@@ -26,12 +26,12 @@ class ProductAdmin(admin.ModelAdmin):
         if request.user.is_superuser:
             return Product.objects.all()
         return Product.objects.filter(publisher=request.user)
-"""
+
     def save_model(self, request, obj, form, change):
         if not change:
-            obj.publisher = request.user
+            obj.publisher = Publisher.objects.get(id = request.user.id)
         obj.save()
-"""
+
 
 class FileUploaderAdmin(admin.ModelAdmin):
 
@@ -97,7 +97,6 @@ class SimpleSubscriberAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         if not request.user.is_superuser:
             obj.publisher = Publisher.objects.get(id = request.user.id)
-
         obj.save()
 
     def has_change_permission(self, request, obj=None):
@@ -134,10 +133,4 @@ admin.site.register(SimpleSubscriber, SimpleSubscriberAdmin)
 admin.site.register(Publisher)
 admin.site.register(FileUploader, FileUploaderAdmin)
 
-"""
-    def queryset(self, request):
-        qs = super(SimpleSubscriberAdmin, self).queryset(request)
-        if request.user.is_superuser:
-            return qs
-        return qs.filter(owner=request.user)
-"""
+

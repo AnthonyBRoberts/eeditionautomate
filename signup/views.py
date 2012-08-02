@@ -13,16 +13,10 @@ import datetime
 
 
 def select_product(request, publisher_id):
-    #p = get_object_or_404(Product, pk=product)
     publisher = Publisher.objects.get(id=publisher_id)
     title = "Please select your subscription"
     pform = Product.objects.order_by('-duration').exclude(product_active=False).filter(publisher=publisher_id)
-    """
-    try:
-        selected_product = p.choice_set.get(pk=request.POST['product'])
-    except (KeyError, Choice.DoesNotExist):
-        return render_to_response('signup/
-"""
+
     if request.method == 'POST': # If the form has been submitted...
         pform = ProductForm(request.POST) # A form bound to the POST data
         if pform.is_valid(): # All validation rules pass 
