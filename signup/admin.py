@@ -26,12 +26,12 @@ class ProductAdmin(admin.ModelAdmin):
         if request.user.is_superuser:
             return Product.objects.all()
         return Product.objects.filter(publisher=request.user)
-
+"""
     def save_model(self, request, obj, form, change):
         if not change:
             obj.publisher = Publisher.objects.get(id = request.user.id)
         obj.save()
-
+"""
 
 class FileUploaderAdmin(admin.ModelAdmin):
 
