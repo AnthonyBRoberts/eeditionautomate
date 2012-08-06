@@ -1,4 +1,8 @@
+# settings files not maintained by version control
 settings.py
+settings_production.py
+# don't track temp files or compiled python files
+*~
 *.pyc
 
 
