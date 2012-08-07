@@ -115,12 +115,16 @@ class SimpleSubscriberAdmin(admin.ModelAdmin):
 
 
 class CommunicationAdmin(admin.ModelAdmin):
-    fieldsets = [
-        ('Message details', {'fields': ['comm_name', 'comm_message', 'comm_active',]}),
-        ('Message scheduling', {'fields': ['send_now', 'comm_schedule', 'days', 'sub_status',]}),
-    ]
+    
     list_display  = ('publisher', 'comm_name', 'comm_active')
     search_fields = ['comm_name',]
+
+    def get_form(self, request, obj=None, **kwargs):            
+        if not request.user.is_superuser:
+            kwargs['fields'] = ['comm_name', 'comm_message', 'comm_active', 'send_now', 'comm_schedule', 'days', 'sub_status',]
+        else:
+            kwargs['fields'] = ['comm_name', 'comm_message', 'comm_active', 'send_now', 'comm_schedule', 'days', 'sub_status', 'publisher',]
+        return super(CommunicationAdmin, self).get_form(request, obj, **kwargs)
     
     def queryset(self, request):
         if request.user.is_superuser:
