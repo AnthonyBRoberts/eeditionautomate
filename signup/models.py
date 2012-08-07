@@ -140,5 +140,3 @@ class SubscriberForm(ModelForm):
     def clean_email(self):
         email = self.cleaned_data['username']
         return email
-    
-
