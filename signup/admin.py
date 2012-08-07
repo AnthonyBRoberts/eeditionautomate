@@ -47,6 +47,12 @@ class FileUploaderAdmin(admin.ModelAdmin):
             return FileUploader.objects.all()
         return FileUploader.objects.filter(publisher=request.user)
 
+    def save_model(self, request, obj, form, change):
+        if not change:
+            obj.publisher = Publisher.objects.get(id = request.user.id)
+        obj.save()
+
+
 """
     def upload_file(request):
         if request.method == 'POST':
