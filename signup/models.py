@@ -6,8 +6,8 @@ from django import forms
 from django.forms import ModelForm
 from django.forms.models import modelform_factory
 from django.core.mail import send_mail
-from ckeditor.widgets import CKEditorWidget
-from ckeditor.fields import RichTextField
+#from ckeditor.widgets import CKEditorWidget
+#from ckeditor.fields import RichTextField
 
 
 class Publisher(User):
@@ -79,7 +79,7 @@ class FileUploader(models.Model):
 class Communication(models.Model):
     publisher = models.ForeignKey(Publisher)
     comm_name = models.CharField(max_length=50)
-    comm_message = models.CharField(widget=forms.Textarea)
+    comm_message = models.CharField(max_length=500)
     comm_active = models.BooleanField()
     send_now = models.BooleanField()
     #class Admin:
