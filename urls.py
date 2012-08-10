@@ -7,6 +7,6 @@ admin.autodiscover()
 urlpatterns = patterns('',
     url(r'^signup/', include('signup.urls')),
     url(r'^admin/', include(admin.site.urls)), 
-    url(r'^media/files/*', 'serve'), 
+    url(r'^media/files/*', 'django.contrib.staticfiles.views.serve'), 
 )
 urlpatterns += staticfiles_urlpatterns()
