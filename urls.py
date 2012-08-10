@@ -7,6 +7,5 @@ admin.autodiscover()
 urlpatterns = patterns('',
     url(r'^signup/', include('signup.urls')),
     url(r'^admin/', include(admin.site.urls)), 
-    #url(r'^media/', 
 )
-
+urlpatterns += staticfiles_urlpatterns()

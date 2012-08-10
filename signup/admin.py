@@ -51,25 +51,13 @@ class FileUploaderAdmin(admin.ModelAdmin):
         if not change:
             obj.publisher = Publisher.objects.get(id = request.user.id)
         obj.save()
-
-
 """
-    def upload_file(request):
-        if request.method == 'POST':
-            form = UploadFileForm(request.POST, request.FILES)
-            if form.is_valid():
-                handle_uploaded_file(request.FILES['file'])
-                return HttpResponsRedirect('/success/url/')
-        else:
-            form = UploadFileForm()
-        return render_to_response('upload.html', {'form': form})
-
-    def handle_uploaded_file(f):
-        destination = open('some/file/name.txt', 'wb+')
-        for chunk in f.chunks():
-            destination.write(chunk)
-        destination.close()
+    def download_file(request):
+        with open('home/aroberts/webapps/eeditionautomate/eeditionautomate/media/uploads/') as file:
+            response = HttpResponse(file.read(), content_type='application/pdf')
+            response['Content-Disposition'] = 'attachment; filename=
 """
+
 
 class SimpleSubscriberAdmin(admin.ModelAdmin):
 
