@@ -28,7 +28,7 @@ class ProductAdmin(admin.ModelAdmin):
         return Product.objects.filter(publisher=request.user)
 
     def save_model(self, request, obj, form, change):
-        if not change:
+        if not request.user.is_superuser:
             obj.publisher = Publisher.objects.get(id = request.user.id)
         obj.save()
 
@@ -48,7 +48,7 @@ class FileUploaderAdmin(admin.ModelAdmin):
         return FileUploader.objects.filter(publisher=request.user)
 
     def save_model(self, request, obj, form, change):
-        if not change:
+        if not request.user.is_superuser:
             obj.publisher = Publisher.objects.get(id = request.user.id)
         obj.save()
 """
@@ -120,7 +120,7 @@ class CommunicationAdmin(admin.ModelAdmin):
         return Communication.objects.filter(publisher=request.user)
 
     def save_model(self, request, obj, form, change):
-        if not change:
+        if not request.user.is_superuser:
             obj.publisher = Publisher.objects.get(id = request.user.id)
         obj.save()
 
