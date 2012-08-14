@@ -69,7 +69,7 @@ class SimpleSubscriber(User):
 class FileUploader(models.Model):
     publisher = models.ForeignKey(Publisher)
     title = models.CharField(max_length=50)
-    file = models.FileField(upload_to='files/%Y/%m/%d/')
+    file = models.FileField(upload_to='uploads/%Y/%m/%d/')
 
     def __unicode__(self):
         return self.title
